@@ -10,7 +10,7 @@ class WeeblyScraper():
 
     def scrape(weebly, pages):
         post_urls = []
-        for page in range(1,11):
+        for page in range(1,pages):
             print "scraping page #"+str(page)
             try:
                 url = urllib2.urlopen(weebly+"articles/previous/"+str(page))
@@ -22,7 +22,6 @@ class WeeblyScraper():
                         post_urls.append(post_url)
             except:
                 print "page not found, you don't have that many posts"
-        print post_urls
 
         for post_url in post_urls:
             url = urllib2.urlopen(post_url)
@@ -30,7 +29,6 @@ class WeeblyScraper():
             soup = BeautifulSoup(html_doc, 'html.parser')
             title = soup.findAll("a", { "class" : "blog-title-link" })
             title = title[0].get_text().encode("ascii", "ignore")
-            print title
             date = soup.findAll("p", { "class" : "blog-date" })
             date = date[0].get_text().encode("ascii", "ignore").strip()
             date = datetime.datetime.strptime(date, '%m/%d/%Y').strftime('%Y-%m-%d')
@@ -40,7 +38,7 @@ class WeeblyScraper():
             filename = url.replace("articles/", "")
             filename = filename[:120]
             post_md = open("content/"+date+'-'+filename+".md", 'w+')
-            print "writing "+date+filename+".md"
+            print "...writing "+date+filename+".md"
             post_md.write("---\ntitle: '"+title+"'\ndate: "+date+"\nurl: "+url+"\n\n---\n"+content)
             post_md.close()
 

@@ -6,7 +6,11 @@ This is a very simple script to scrape a weebly site's blog posts into markdown 
 
 To use run this script with python on the commandline with the first argument being the website address (the weebly.com version) and the second being the number of pages of blog posts to attempt to scrape (if you don't know how many pages try a large number):`
 ```shell
-python weebly-scraper.py http://example.weebly.com 20
+python weebly-scraper.py http://example.weebly.com/ 20
 ```
 
 Requirements: Python, Beautiful Soup
+
+https://wiki.python.org/moin/BeginnersGuide/Download
+
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup

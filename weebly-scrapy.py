@@ -8,9 +8,11 @@ import sys
 
 class WeeblyScraper():
 
-    def scrape(weebly, pages):
+    def scrape(self, weebly, pages):
+        print weebly
+        print pages
         post_urls = []
-        for page in range(1,pages):
+        for page in range(1,int(pages)):
             print "scraping page #"+str(page)
             try:
                 url = urllib2.urlopen(weebly+"articles/previous/"+str(page))
@@ -34,11 +36,11 @@ class WeeblyScraper():
             date = datetime.datetime.strptime(date, '%m/%d/%Y').strftime('%Y-%m-%d')
             content = soup.findAll("div", { "class" : "blog-content" })
             content = content[0].prettify().encode("utf8", "ignore")
-            url = post_url.replace(WEEBLY_URL, '').encode("ascii", "ignore")
+            url = post_url.replace(weebly, '').encode("ascii", "ignore")
             filename = url.replace("articles/", "")
             filename = filename[:120]
             post_md = open("content/"+date+'-'+filename+".md", 'w+')
-            print "...writing "+date+filename+".md"
+            print "...writing "+date+'-'+filename+".md"
             post_md.write("---\ntitle: '"+title+"'\ndate: "+date+"\nurl: "+url+"\n\n---\n"+content)
             post_md.close()
 
@@ -46,6 +48,8 @@ class WeeblyScraper():
 if __name__== "__main__":
     if len(sys.argv) != 3:
         print "Usage: %s <weebly url> <number of pages>" % sys.argv[0]
-        sys.exit(1)
-        scraper = WeeblyScraper()
-        scraper.scrape(sys.argv[1], sys,argv[2])
+    print sys.argv[1]
+    print sys.argv[2]
+    scraper = WeeblyScraper()
+    scraper.scrape(sys.argv[1], sys.argv[2])
+    sys.exit(1)

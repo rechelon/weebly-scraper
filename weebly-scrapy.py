@@ -41,7 +41,7 @@ class WeeblyScraper():
             filename = filename[:120]
             post_md = open("content/"+date+'-'+filename+".md", 'w+')
             print "...writing "+date+'-'+filename+".md"
-            post_md.write("---\ntitle: '"+title+"'\ndate: "+date+"\nurl: "+url+"\n\n---\n"+content)
+            post_md.write("---\ntitle: "+'"'+title+'"'+"\ndate: "+date+"\nurl: "+url+"\n\n---\n"+content)
             post_md.close()
 
 
